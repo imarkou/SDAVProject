@@ -35,26 +35,26 @@ var svg = d3.select("div#vis1").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// read wounded data from file
+// read American Cuisine data from file
 d3.csv('Data/v1/AmericanScores.csv', function(error, data) {
     if (error) throw error;
-    var gradeNames = d3.keys(data[0]).filter(function(key) {
+    var gradeNames = d3.keys(data[0]).filter(function (key) {
         return key !== "Year";
     });
-    data.forEach(function(d) {
-        d.grades = gradeNames.map(function(name) {
+    data.forEach(function (d) {
+        d.grades = gradeNames.map(function (name) {
             return {
                 name: name
                 , value: +d[name]
             };
         });
     });
-    x0.domain(data.map(function(d) {
+    x0.domain(data.map(function (d) {
         return d.Year;
     }));
     x1.domain(gradeNames).rangeRoundBands([0, x0.rangeBand()]);
-    y.domain([0, d3.max(data, function(d) {
-        return d3.max(d.grades, function(d) {
+    y.domain([0, d3.max(data, function (d) {
+        return d3.max(d.grades, function (d) {
             return d.value;
         });
     })]);
@@ -71,49 +71,49 @@ d3.csv('Data/v1/AmericanScores.csv', function(error, data) {
         .attr("y", 10)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Number of people");
+        .text("No. of restaurants");
 
     var year = svg.selectAll(".year")
         .data(data)
         .enter().append("g")
         .attr("class", "year")
-        .attr("transform", function(d) {
+        .attr("transform", function (d) {
             return "translate(" + x0(d.Year) + ",0)";
         });
 
     year.selectAll(".bar")
-        .data(function(d) {
+        .data(function (d) {
             return d.grades;
         })
         .enter()
         .append("rect")
         .attr("class", "bar")
         .attr("width", x1.rangeBand())
-        .attr("x", function(d) {
+        .attr("x", function (d) {
             return x1(d.name);
         })
-        .attr("y", function(d) {
+        .attr("y", function (d) {
             return y(d.value);
         })
-        .attr("height", function(d) {
+        .attr("height", function (d) {
             return height - y(d.value);
         })
-        .style("fill", function(d) {
+        .style("fill", function (d) {
             return color(d.name);
         });
 
-    d3.selectAll("rect.bar")
-        .on("mouseover", function(d) {
+    d3.selectAll('rect.bar')
+        .on("mouseover", function (d) {
             tooltip.transition()
                 .duration(200)
                 .style("opacity", .9);
-            tooltip.html("<div>" + d.value + " victims</div>")
+            tooltip.html("<div>" + d.value + " restaurants</div>")
                 .style("font-weight", "bold")
                 .style("color", "black")
                 .style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
         })
-        .on("mouseout", function(d) {
+        .on("mouseout", function (d) {
             tooltip.transition()
                 .duration(500)
                 .style("opacity", 0);
@@ -122,20 +122,22 @@ d3.csv('Data/v1/AmericanScores.csv', function(error, data) {
         .data(gradeNames.slice().reverse())
         .enter().append("g")
         .attr("class", "legend")
-        .attr("transform", function(d, i) {
+        .attr("transform", function (d, i) {
             return "translate(80," + i * 20 + ")";
         });
     legend.append("rect")
-        .attr("x", width - 760)
+        .attr("x", width - 100)
         .attr("width", 18)
         .attr("height", 18)
         .style("fill", color);
     legend.append("text")
-        .attr("x", width - 770)
+        .attr("x", width - 110)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "end")
-        .text(function(d) {
+        .text(function (d) {
             return d;
         })
         .style("fill", color);
+
+});
