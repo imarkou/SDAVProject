@@ -29,7 +29,7 @@ d3.text("Data/v2/wordcloud_cuisines", function(text) {
 		var svg_location = "div#vis2";
 		var width = 860;
 		var height = 600;
-		var fill = d3.scale.category20();
+		var fill = d3.scale.category10();
 		var word_entries = d3.entries(word_count);
 		var xScale = d3.scale.linear()
 			.domain([0, d3.max(word_entries, function(d) {
@@ -75,24 +75,7 @@ d3.text("Data/v2/wordcloud_cuisines", function(text) {
 				.text(function(d) {
 					return d.key;
 				})
-				.on("mouseover", function(d) {
-					d3.select(this)
-						.transition().duration(200)
-						.style("font-weight", "bold")
-				})
-				.on("mouseout", function(d) {
-					d3.select(this)
-						.transition().duration(500)
-						.style("font-weight", null)
-				});
-				$(svg_location + ' svg g text').tipsy({ 
-					gravity: 'w', 
-					html: true, 
-					title: function() {
-					var d = this.__data__;
-						return d.key; 
-					}
-				});
+
 		}
 		d3.layout.cloud().stop();
 	}
