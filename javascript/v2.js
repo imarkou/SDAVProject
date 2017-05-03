@@ -1,8 +1,10 @@
 "use strict";
 
 var text_string;
-d3.text("Data/v2/allcuisines.txt", function(text) {
+d3.text("Data/v2/wordcloud_cuisines", function(text) {
 	var data = d3.csv.parseRows(text);
+	console.log(data[0][0])
+	console.log(data)
 	text_string = data[0][0];
 	drawWordCloud(text_string);
 
