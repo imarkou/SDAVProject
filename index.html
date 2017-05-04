@@ -122,6 +122,8 @@
 
         <h3>Introduction</h3>
 
+        <br />
+
         <p> The New York's New Restaurant Grading System assigns letter grades of A, B, or C depending on
             the number of health code violations recorded in a restaurant's most recent inspection. Restaurants are
             required to post a placard advertising the letter grade in their front window,
@@ -132,7 +134,8 @@
             and violations. But it is also known that few patrons actively seek out this information,
             and thus are in greater danger of contracting food-borne illness from an unclean restaurant.
             The most egregious violators are, of course, promptly shut down by health inspectors until they clean
-            up their act. But the poor-performing restaurants that are not closed remain a possible threat to public health.
+            up their act. But the poor-performing restaurants that are not closed remain a possible threat to public
+            health.
         </p>
 
         <p>
@@ -162,7 +165,31 @@
 
         <h3>Data Overview</h3>
 
+        <br />
+        Our dataset includes all NYC restaurant violation records from 2012 (423,026 Rows).
 
+        <p></p>
+
+        Its total size is 154.4MB. Some of dataset's columns are:
+
+        <p></p>
+
+        <ul>
+            <li>Restaurant's unique identifier</li>
+            <li>Restaurant's name</li>
+            <li>Borough in with the restaurant is located</li>
+            <li>Restaurant's address</li>
+            <li>Cuisine Description</li>
+            <li>Violation Description</li>
+        </ul>
+
+        <p>Firstly, it would be interesting to see the cuisines that our dataset includes, as well as their popularity.
+        Thh bar-chart, as well as the following wordcloud, shows that the american cuisine is the most common cuisine
+        in NYC. The Chinese, the Italian and the Latin cuisine follow up.</p>
+
+        <p>
+            <img src="img/barplot.png" alt="Cuisine Categories">
+        </p>
 
         <!-- Visualization 2 - Wordcloud -->
         <div id="vis2">
