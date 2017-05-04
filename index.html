@@ -50,7 +50,7 @@
             stroke:#000;
         }
         #xaxis text, #yaxis text {
-            font-size: 12px;
+            font-size: 18px;
 
     </style>
 
@@ -230,11 +230,11 @@
         <div id="wrapper">
         </div>
         <script>
-            var categories= ['Unacceptable material used', 'Facilities not vermin proof', 'food not protected from potential source of contamination during storage'];
+            var categories= ['Unacceptable material used', 'Facilities not vermin proof', 'Food not protected from potential source of contamination during storage'];
 
             var dollars = [26667, 18193, 15287];
 
-            var colors = ['#0000b4','#0082ca','#0094ff'];
+            var colors = ['#0000b4','#2fcab6','#0094ff'];
 
             var grid = d3.range(25).map(function(i){
                 return {'x1':0,'y1':0,'x2':0,'y2':480};
@@ -270,7 +270,7 @@
 
             var	yAxis = d3.svg.axis();
             yAxis
-                .orient('left')
+                .orient('right')
                 .scale(yscale)
                 .tickSize(2)
                 .tickFormat(function(d,i){ return categories[i]; })
@@ -310,7 +310,7 @@
                 .data(dollars)
                 .enter()
                 .append('text')
-                .attr({'x':function(d) {return xscale(d)-70; },'y':function(d,i){ return yscale(i)+50; }})
+                .attr({'x':function(d) {return xscale(d)-70; },'y':function(d,i){ return yscale(i)+40; }})
                 .text(function(d){ return d; }).style({'fill':'#fff','font-size':'20px'});
 
 
