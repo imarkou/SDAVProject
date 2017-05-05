@@ -87,12 +87,12 @@ function v3() {
         }
     };
 
-    var chartWidth = document.getElementById("assignment2ASVG").clientWidth;
-    var chartHeight = document.getElementById("assignment2ASVG").clientHeight;
+    var chartWidth = document.getElementById("scatterplot").clientWidth;
+    var chartHeight = document.getElementById("scatterplot").clientHeight;
     const padding = 50;
 
     //Create SVG element
-    var svg = d3.select("#assignment2ASVG");
+    var svg = d3.select("#scatterplot");
 
     var globalData;
 
@@ -209,12 +209,12 @@ function v3() {
                     .attr("x", 0 - (chartHeight / 2))
                     .attr("dy", "3em")
                     .style("text-anchor", "middle")
-                    .text("Vehicle-Theft Crimes");
+                    .text("Grade B");
 
                 // Add the text label for the x axis
                 svg.append("text")
                     .attr("transform", "translate(" + (chartWidth / 2) + "," + (chartHeight - 15) + ")").style("text-anchor", "middle")
-                    .text("Prostitution Crimes");
+                    .text("Grade A");
             }
         });
     }

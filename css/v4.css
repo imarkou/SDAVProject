@@ -1,0 +1,8 @@
+/* Visualization 4 - Barchart */
+
+div#vis4 #xaxis .domain {
+    fill:none;
+    stroke:#000;
+}
+div#vis4 #xaxis text, #yaxis text {
+    font-size: 18px;

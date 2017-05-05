@@ -45,13 +45,6 @@
         /* Visualization 2 - Wordcloud */
         @import url(css/tipsy.css);
 
-        #xaxis .domain {
-            fill:none;
-            stroke:#000;
-        }
-        #xaxis text, #yaxis text {
-            font-size: 18px;
-
     </style>
 
     <!-- load JS files -->
@@ -204,6 +197,7 @@
             <script src="javascript/v2.js" type="text/javascript"></script>
         </div>
 
+
         <p>
             Since we study restaurant inspections results, it will be also interesting to see which are the most common
             violations that restaurant inspectors note. The top three contraventions are:
@@ -212,14 +206,18 @@
 
         <p>
         <ul>
-            <li> <b>26667</b> of restaurants had non-food contact surface improperly constructed, unacceptable material used,
+            <li><b>26667</b> of restaurants had non-food contact surface improperly constructed, unacceptable material
+                used,
                 non-food contact surface or equipment improperly maintained and/or
                 not properly sealed, raised, spaced or movable to allow accessibility for cleaning on all sides,
-                above and underneath the unit.</li>
-            <li> <b>18193</b> of restaurants had facilities not vermin proof,
-                harborage or conditions conducive to attracting vermin to the premises and/or allowing vermin to exist.</li>
-            <li> <b>15287</b> of restaurants had food not protected from potential source
-                of contamination during storage, preparation, transportation, display or service.</li>
+                above and underneath the unit.
+            </li>
+            <li><b>18193</b> of restaurants had facilities not vermin proof,
+                harborage or conditions conducive to attracting vermin to the premises and/or allowing vermin to exist.
+            </li>
+            <li><b>15287</b> of restaurants had food not protected from potential source
+                of contamination during storage, preparation, transportation, display or service.
+            </li>
         </ul>
 
         </p>
@@ -227,97 +225,11 @@
 
         <br/>
 
-        <div id="wrapper">
+        <!-- Visualization 4 - bar chart -->
+
+        <div id="vis4">
+            <script src="javascript/v4.js" type="text/javascript"></script>
         </div>
-        <script>
-            var categories= ['Unacceptable material used', 'Facilities not vermin proof', 'Food not protected from potential source of contamination during storage'];
-
-            var dollars = [26667, 18193, 15287];
-
-            var colors = ['#0000b4','#2fcab6','#0094ff'];
-
-            var grid = d3.range(25).map(function(i){
-                return {'x1':0,'y1':0,'x2':0,'y2':480};
-            });
-
-            var tickVals = grid.map(function(d,i){
-                if(i>0){ return i*10; }
-                else if(i===0){ return "100";}
-            });
-
-            var xscale = d3.scale.linear()
-                .domain([1,26667])
-                .range([10,722]);
-
-            var yscale = d3.scale.linear()
-                .domain([0,categories.length])
-                .range([10,450]);
-
-            var colorScale = d3.scale.quantize()
-                .domain([0,categories.length])
-                .range(colors);
-
-            var canvas = d3.select('#wrapper')
-                .append('svg')
-                .attr({'width':900,'height':450});
-
-
-            var	xAxis = d3.svg.axis();
-            xAxis
-                .orient('bottom')
-                .scale(xscale);
-//                .tickValues(tickVals);
-
-            var	yAxis = d3.svg.axis();
-            yAxis
-                .orient('right')
-                .scale(yscale)
-                .tickSize(2)
-                .tickFormat(function(d,i){ return categories[i]; })
-                .tickValues(d3.range(3));
-
-            var y_xis = canvas.append('g')
-                .attr("transform", "translate(150,0)")
-                .attr('id','yaxis')
-                .call(yAxis);
-
-//            var x_xis = canvas.append('g')
-//                .attr("transform", "translate(100,400)")
-//                .attr('id','xaxis')
-//                .call(xAxis);
-
-            var chart = canvas.append('g')
-                .attr("transform", "translate(150,0)")
-                .attr('id','bars')
-                .selectAll('rect')
-                .data(dollars)
-                .enter()
-                .append('rect')
-                .attr('height',80)
-                .attr({'x':0,'y':function(d,i){ return yscale(i)+19; }})
-                .style('fill',function(d,i){ return colorScale(i); })
-                .attr('width',function(d){ return 0; });
-
-
-            var transit = d3.select("svg").selectAll("rect")
-                .data(dollars)
-                .transition()
-                .duration(10000)
-                .attr("width", function(d) {return xscale(d); });
-
-            var transitext = d3.select('#bars')
-                .selectAll('text')
-                .data(dollars)
-                .enter()
-                .append('text')
-                .attr({'x':function(d) {return xscale(d)-180; },'y':function(d,i){ return yscale(i)+40; }})
-                .text(function(d){ return d+" Restaurants"; }).style({'fill':'#fff','font-size':'20px'});
-
-
-        </script>
-
-
-
 
         <p>
 
@@ -327,7 +239,7 @@
 
         <p>
 
-        <!-- Visualization 1 - bar chart -->
+            <!-- Visualization 1 - bar chart -->
         <div id="vis1">
             Toggle between the four popular cuisines:
             <button id="buttonAmerican" class="button">American</button>
@@ -339,11 +251,15 @@
 
         </p>
 
-            <!-- Visualization 3 - Scatterplot -->
+        <!-- Visualization 3 - Scatterplot -->
 
         <p>Click a button to select a year.</p>
 
-        <div>
+
+        <div id="vis3">
+
+            <script type="text/javascript" src="javascript/v3.js"></script>
+
             <div class="row">
                 <div class="col-md-12">
                     <h4 id="dataHeader">Data 2013</h4>
@@ -351,7 +267,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <svg width="100%" height="600" style="overflow: visible;" id="assignment2ASVG"></svg>
+                    <svg width="100%" height="600" style="overflow: visible;" id="scatterplot"></svg>
                 </div>
             </div>
             <div class="row">
@@ -361,13 +277,13 @@
                     </button>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-info col-md-offset-3"
+                    <button type="button" class="btn btn-primary col-md-offset-3"
                             onclick="v3Object.buttonClickEvent('Data/v3/data2016.csv')">2016 Data
                     </button>
                 </div>
             </div>
 
-    </div>
+        </div>
 </section>
 
 <!-- jQuery -->
