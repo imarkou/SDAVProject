@@ -281,10 +281,10 @@
                 .attr('id','yaxis')
                 .call(yAxis);
 
-            var x_xis = canvas.append('g')
-                .attr("transform", "translate(100,400)")
-                .attr('id','xaxis')
-                .call(xAxis);
+//            var x_xis = canvas.append('g')
+//                .attr("transform", "translate(100,400)")
+//                .attr('id','xaxis')
+//                .call(xAxis);
 
             var chart = canvas.append('g')
                 .attr("transform", "translate(150,0)")
@@ -310,8 +310,8 @@
                 .data(dollars)
                 .enter()
                 .append('text')
-                .attr({'x':function(d) {return xscale(d)-70; },'y':function(d,i){ return yscale(i)+40; }})
-                .text(function(d){ return d; }).style({'fill':'#fff','font-size':'20px'});
+                .attr({'x':function(d) {return xscale(d)-180; },'y':function(d,i){ return yscale(i)+40; }})
+                .text(function(d){ return d+" Restaurants"; }).style({'fill':'#fff','font-size':'20px'});
 
 
         </script>
