@@ -221,7 +221,7 @@ function v3() {
         });
     }
 
-    ReadFileAndUpdateChart("Data/v3/data2013.csv");
+    ReadFileAndUpdateChart("Data/v3/data2016.csv");
 
     return returnedObject;
 
