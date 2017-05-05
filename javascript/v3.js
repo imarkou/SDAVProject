@@ -87,6 +87,8 @@ function v3() {
         }
     };
 
+    console.log('document', document)
+    console.log('getelement', document.getElementById("scatterplot"))
     var chartWidth = document.getElementById("scatterplot").clientWidth;
     var chartHeight = document.getElementById("scatterplot").clientHeight;
     const padding = 50;
@@ -99,7 +101,7 @@ function v3() {
     //Data
     function ReadFileAndUpdateChart(filename) {
 
-        d3.json(filename, function (data) {
+        d3.csv(filename, function (data) {
 
             data.forEach(function (item) {
                 item.A = parseInt(item.A);
@@ -123,7 +125,7 @@ function v3() {
                 })])
                 .range([chartHeight - padding, padding]);
 
-            const factor = 0.009;
+            const factor = 0.029;
             const maxRadius = Math.sqrt(chartWidth * chartHeight * factor / Math.PI);
             var rScale = d3.scale.linear()
                 .domain([0, d3.max(data, function (data) {
