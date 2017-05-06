@@ -11,7 +11,7 @@ d3.text("Data/v2/wordcloud_cuisines", function (text) {
             word_count[words[0]] = 1;
         } else {
             words.forEach(function (word) {
-                var word = word.toLowerCase();
+                word = word.toLowerCase();
                 if (word != "" && common.indexOf(word) == -1 && word.length > 1) {
                     if (word_count[word]) {
                         word_count[word]++;
@@ -91,11 +91,12 @@ d3.text("Data/v2/wordcloud_cuisines", function (text) {
             } else if (ID == "wordcloudViolations") {
                 update_wordcloud("Data/v2/wordcloud_violations")
             }
-        })
+        });
 
     function update_wordcloud(filename) {
         d3.text(filename, function (text) {
             drawWordCloud2(text);
+
 
             function drawWordCloud2(text_string) {
                 var common = "poop,i,me,my,myself,we,us,our,ours,ourselves,you,your,yours,yourself,yourselves,he,him,his,himself,she,her,hers,herself,it,its,itself,they,them,their,theirs,themselves,what,which,who,whom,whose,this,that,these,those,am,is,are,was,were,be,been,being,have,has,had,having,do,does,did,doing,will,would,should,can,could,ought,i'm,you're,he's,she's,it's,we're,they're,i've,you've,we've,they've,i'd,you'd,he'd,she'd,we'd,they'd,i'll,you'll,he'll,she'll,we'll,they'll,isn't,aren't,wasn't,weren't,hasn't,haven't,hadn't,doesn't,don't,didn't,won't,wouldn't,shan't,shouldn't,can't,cannot,couldn't,mustn't,let's,that's,who's,what's,here's,there's,when's,where's,why's,how's,a,an,the,and,but,if,or,because,as,until,while,of,at,by,for,with,about,against,between,into,through,during,before,after,above,below,to,from,up,upon,down,in,out,on,off,over,under,again,further,then,once,here,there,when,where,why,how,all,any,both,each,few,more,most,other,some,such,no,nor,not,only,own,same,so,than,too,very,say,says,said,shall";
@@ -106,7 +107,7 @@ d3.text("Data/v2/wordcloud_cuisines", function (text) {
                     updatedWordCount[words[0]] = 1;
                 } else {
                     updatedWords.forEach(function (word) {
-                        var word = word.toLowerCase();
+                        word = word.toLowerCase();
                         if (word != "" && common.indexOf(word) == -1 && word.length > 1) {
                             if (updatedWordCount[word]) {
                                 updatedWordCount[word]++;
@@ -116,7 +117,6 @@ d3.text("Data/v2/wordcloud_cuisines", function (text) {
                         }
                     })
                 }
-                console.log(updatedWordCount)
 
                 var svg_location = "div#vis2";
                 var width = 860;
@@ -125,7 +125,6 @@ d3.text("Data/v2/wordcloud_cuisines", function (text) {
                 var fill = d3.scale.category20();
 
                 var updatedEntries = d3.entries(updatedWordCount);
-                console.log(updatedEntries)
 
                 var xScale = d3.scale.linear()
                     .domain([0, d3.max(updatedEntries, function (d) {
