@@ -304,28 +304,17 @@
     </p>
 
 
-    <div class="row">
-        <div class="col-xs-6 col-md-6">
-            <button type="button" class="btn btn-primary col-md-offset-3"
-                    onclick="document.getElementById('myImage').src='Data/v5/k3.png'">KNN with K=3
-            </button>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <button type="button" class="btn btn-primary col-md-offset-3 col-xs-offset-6"
-                    onclick="document.getElementById('myImage').src='Data/v5/k5.png'">KNN with K=5
-            </button>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <button type="button" class="btn btn-primary col-md-offset-3 col-xs-offset-6"
-                    onclick="document.getElementById('myImage').src='Data/v5/k10.png'">KNN with K=10
-            </button>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <button type="button" class="btn btn-primary col-md-offset-3 col-xs-offset-6"
-                    onclick="document.getElementById('myImage').src='Data/v5/k30.png'">KNN with K=30
-            </button>
-        </div>
+    <div class="dropdown" style="margin-left: 150px">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Neighbors
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li><a onclick="document.getElementById('myImage').src='Data/v5/k3.png'">K=3</a></li>
+            <li><a onclick="document.getElementById('myImage').src='Data/v5/k5.png'">K=5</a></li>
+            <li><a onclick="document.getElementById('myImage').src='Data/v5/k10.png'">K=10</a></li>
+            <li><a onclick="document.getElementById('myImage').src='Data/v5/k30.png'">K=30</a></li>
+        </ul>
     </div>
+
 
     <div id="knnmap">
         <img id="myImage" src="Data/v5/k3.png" style="width:700px; border: 3px solid #0fad21;
