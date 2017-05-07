@@ -78,7 +78,7 @@
                     data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+            <a class="navbar-brand page-scroll" href="#page-top">NYC Open Data</a>
         </div>
 
         <!--Collect the nav links, forms, and other content for toggling-->
@@ -94,7 +94,7 @@
                     <a class="page-scroll" href="#dataoverview">Data Overview</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#visualization3">V3</a>
+                    <a class="page-scroll" href="#predictions">Predictions</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="#visualization4">V4</a>
@@ -296,20 +296,49 @@
 
 </section>
 
+<section id="predictions">
+
+         <!-- Visualization 5 - KNN Map -->
+    <p>
+
+    </p>
+
+
+    <div class="row">
+        <div class="col-xs-6 col-md-6">
+            <button type="button" class="btn btn-primary col-md-offset-3"
+                    onclick="document.getElementById('myImage').src='Data/v5/k3.png'">KNN with K=3
+            </button>
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <button type="button" class="btn btn-primary col-md-offset-3 col-xs-offset-6"
+                    onclick="document.getElementById('myImage').src='Data/v5/k5.png'">KNN with K=5
+            </button>
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <button type="button" class="btn btn-primary col-md-offset-3 col-xs-offset-6"
+                    onclick="document.getElementById('myImage').src='Data/v5/k10.png'">KNN with K=10
+            </button>
+        </div>
+        <div class="col-md-6 col-xs-6">
+            <button type="button" class="btn btn-primary col-md-offset-3 col-xs-offset-6"
+                    onclick="document.getElementById('myImage').src='Data/v5/k30.png'">KNN with K=30
+            </button>
+        </div>
+    </div>
+
+    <div id="knnmap">
+        <img id="myImage" src="Data/v5/k3.png" style="width:700px; border: 3px solid #0fad21;
+    margin-left: 150px; margin-bottom: 30px; margin-top: 30px">
+    </div>
+
+</section>
+
 <!-- jQuery -->
 <script src="vendor/jquery/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<!--&lt;!&ndash; Plugin JavaScript &ndash;&gt;-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"-->
-<!--integrity="sha384-mE6eXfrb8jxl0rzJDBRanYqgBxtJ6Unn4/1F7q4xRRyIw7Vdg9jP4ycT7x1iVsgb"-->
-<!--crossorigin="anonymous"></script>-->
-
-<!--&lt;!&ndash; Contact Form JavaScript &ndash;&gt;-->
-<!--<script src="javascript/jqBootstrapValidation.js"></script>-->
-<!--<script src="javascript/contact_me.js"></script>-->
 
 <!-- Theme JavaScript -->
 <script src="javascript/agency.min.js"></script>
