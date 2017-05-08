@@ -253,11 +253,16 @@
         <br/>
 
         <p>
-            The most common words that inspectors wrote during their visits at NYC restaurants the previous 4 years are unacceptably
-            cleaned <i>surfaces</i>, <i>flies</i>, <i>vermin</i> and inappropriate <i>equipment</i>. It is clear that most
-            of the violations are associated with places where the customer does not have access. Τherefore, it is important
-            to inform the public on time. Since we are not sure if all restaurants post their grade at a prominent place,
-            we are interested in finding NYC areas where the chances for restaurants with low grade are high. Special emphasis
+            The most common words that inspectors wrote during their visits at NYC restaurants the previous 4 years are
+            unacceptably
+            cleaned <i>surfaces</i>, <i>flies</i>, <i>vermin</i> and inappropriate <i>equipment</i>. It is clear that
+            most
+            of the violations are associated with places where the customer does not have access. Τherefore, it is
+            important
+            to inform the public on time. Since we are not sure if all restaurants post their grade at a prominent
+            place,
+            we are interested in finding NYC areas where the chances for restaurants with low grade are high. Special
+            emphasis
             will be also given on the restaurant's violation history and cuisine type.
         </p>
 
@@ -279,10 +284,13 @@
         </div>
 
         <p>
-            For the top four cuisines we are able to see if restaurants showed some progress. It is always useful to check
-            if the restaurant managers complied after inspectors' visits. From the bar-chart that follows, it can be noticed
+            For the top four cuisines we are able to see if restaurants showed some progress. It is always useful to
+            check
+            if the restaurant managers complied after inspectors' visits. From the bar-chart that follows, it can be
+            noticed
             that American and Chinese restaurants showed some improvement. Italian restaurants show similar patterns
-            over the last 4 years. Finally, Latin restaurants show a small increase on grade C reports, a phenomenon that
+            over the last 4 years. Finally, Latin restaurants show a small increase on grade C reports, a phenomenon
+            that
             should be taken into consideration if you plan to visit those restaurants!
         </p>
 
@@ -348,78 +356,96 @@
 
     <div class="container">
 
-    <h3>Where should I go to eat?</h3>
+        <h3>Where should I go to eat?</h3>
 
-    <p>
-        The dataset shows us the inspections results of all five boroughs of NYC for the last 5 years. If we want to
-        define areas where it would be more likely to find a restaurant with low grade, the K-NN is the solution.
-        We decided to work with the unbalanced map, since it would be more interesting to investigate real spatial
-        and temporal crime probabilities. The original heat maps give us the crime distribution that is formerly
-        observed, and the conclusions that will be made using the KNN algorithm will represent reality,
-        since they will be based on true crimes' density.</p>
+        <p>
+            The dataset shows us the inspections results of all five boroughs of NYC for the last 5 years. If we want to
+            define areas where it would be more likely to find a restaurant with low grade, the K-NN is the solution.
+            We decided to work with the unbalanced map, since it would be more interesting to investigate real spatial
+            and temporal crime probabilities. The original heat maps give us the crime distribution that is formerly
+            observed, and the conclusions that will be made using the KNN algorithm will represent reality,
+            since they will be based on true crimes' density.</p>
 
-        <p>From the results it is obvious that there are some "dangerous" areas that we should avoid. More specifically:</p>
+        <p>From the results it is obvious that there are some "dangerous" areas that we should avoid. More
+            specifically:</p>
 
         <p>
         <ul>
-            <li>The most popular borough of NYC, namely Manhattan, has mostly restaurants with good grades. It is a safe choice!
+            <li>The most popular borough of NYC, namely Manhattan, has mostly restaurants with good grades. It is a safe
+                choice!
             </li>
-            <li>New Jersey, which is located southwest, is without any doubt an area where we will probably find more vermin than usual!
+            <li>New Jersey, which is located southwest, is without any doubt an area where we will probably find more
+                vermin than usual!
             </li>
-            <li>The districts of Hackensack, Teaneck and Englewood are also very dangerous (red area in the north). Even with the
-                increase of the number of K, KNN still shows us that we should be careful with restaurants located around that area.
+            <li>The districts of Hackensack, Teaneck and Englewood are also very dangerous (red area in the north). Even
+                with the
+                increase of the number of K, KNN still shows us that we should be careful with restaurants located
+                around that area.
             </li>
-        <li>
-            Finally, visitors of Brooklyn should also try to find the letter grades that are posted outside each restaurant, because
-            the chances of finding a place with inappropriately stored or cooked food are high.
-        </li>
+            <li>
+                Finally, visitors of Brooklyn should also try to find the letter grades that are posted outside each
+                restaurant, because
+                the chances of finding a place with inappropriately stored or cooked food are high.
+            </li>
         </ul>
         </p>
 
-    <!-- Visualization 5 - KNN Map -->
-    <p>
+        <!-- Visualization 5 - KNN Map -->
+        <p>
 
-    </p>
+        </p>
 
-    <div class="container">
-        <h4 id="dataHeader2"">K-nearest neighbors Map</h4>
-    </div>
+        <div class="container">
+            <h4 id="dataHeader2"">K-nearest neighbors Map</h4>
+        </div>
 
-    <br/>
-
-
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Neighbors
-            <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-            <li><a onclick="document.getElementById('myImage').src='Data/v5/k3.png'">K=3</a></li>
-            <li><a onclick="document.getElementById('myImage').src='Data/v5/k5.png'">K=5</a></li>
-            <li><a onclick="document.getElementById('myImage').src='Data/v5/k10.png'">K=10</a></li>
-            <li><a onclick="document.getElementById('myImage').src='Data/v5/k30.png'">K=30</a></li>
-        </ul>
-    </div>
+        <br/>
 
 
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Neighbors
+                <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a onclick="document.getElementById('myImage').src='Data/v5/k3.png'">K=3</a></li>
+                <li><a onclick="document.getElementById('myImage').src='Data/v5/k5.png'">K=5</a></li>
+                <li><a onclick="document.getElementById('myImage').src='Data/v5/k10.png'">K=10</a></li>
+                <li><a onclick="document.getElementById('myImage').src='Data/v5/k30.png'">K=30</a></li>
+            </ul>
+        </div>
 
-    <div id="knnmap">
-        <img id="myImage" src="Data/v5/k3.png" style="width:80%; border: 3px solid #0fad21; margin-bottom: 15px; margin-top: 30px">
-    </div>
 
-    <div id="light_green" class="box"></div><span class="explanation">- Grade A Restaurants</span>
-    <br>
-    <div id="dark_red" class="box"></div><span class="explanation">- Grade B Restaurants</span>
-    <br>
-    <div id="blue" class="box"></div><span class="explanation">- Grade C Restaurants</span>
+        <div id="knnmap">
+            <img id="myImage" src="Data/v5/k3.png"
+                 style="width:80%; border: 3px solid #0fad21; margin-bottom: 15px; margin-top: 30px">
+        </div>
+
+        <div id="light_green" class="box"></div>
+        <span class="explanation">- Grade A Restaurants</span>
+        <br>
+        <div id="dark_red" class="box"></div>
+        <span class="explanation">- Grade B Restaurants</span>
+        <br>
+        <div id="blue" class="box"></div>
+        <span class="explanation">- Grade C Restaurants</span>
     </div>
 </section>
 
 <section id="references">
     <div class="container">
 
-    <h3>References</h3>
+        <h3>Links</h3>
 
-    [1] <i>Beckmann, Marcelo, Nelson FF Ebecken, and Beatriz SL Pires de Lima. "A KNN undersampling approach for data
-    balancing." Journal of Intelligent Learning Systems and Applications 7.4 (2015): 104.</i>
+Used Dataset:
+        <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/rs6k-p7g6"
+           target="_blank">New York City Inspection Results</a>
+
+        <br/>
+        <br/>
+
+        <h3>Technical Comments</h3>
+        <p>Everything was kept in one HTML document to keep the overview. Javascript files are all in one separate file
+            for each visualization. Finally, all data files are in a separate folder that can be easily accessed using
+            inspection tools.
     </div>
 </section>
 
