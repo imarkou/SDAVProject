@@ -1,14 +1,17 @@
+"use strict";
+
 var width = 960,
     height = 500,
     centered;
-var color = ["#D8BFD8","#7FFFD4","#E9967A","#8FBC8F","#ADD8E6","#BC8F8F","#90EE90","#FFB6C1","#B0C4DE","#FFA07A","#DDA0DD","#F5DEB3"]
+var colored = ["#D8BFD8","#7FFFD4","#E9967A","#8FBC8F","#ADD8E6","#BC8F8F","#90EE90","#FFB6C1","#B0C4DE","#FFA07A","#DDA0DD","#F5DEB3"]
 
 
 
-svg1 = d3.select("body")
+var svg1 = d3.select("body")
     .append("svg")
     .attr("width", width )
     .attr("height", height)
+    .attr("margin-left", 150)
 
 svg1.append("rect")
 
@@ -16,6 +19,7 @@ svg1.append("rect")
     .attr("height", height)
     .attr("x", 0)
     .attr("y", 0)
+    .attr("margin-left", 150)
     .style("stroke", "black")
     .style("fill", "#e6f2ff")
     .style("stroke-width", 2);
@@ -30,6 +34,8 @@ var path = d3.geo.path()
 
 
 d3.json("Data/v6/boroughs.geojson", function(json) {
+
+
 
     svg1.selectAll("path")
         .data(json.features)
@@ -88,18 +94,23 @@ d3.json("Data/v6/boroughs.geojson", function(json) {
 
 });
 
-svg2 = d3.select("body")
+
+
+
+var svg2 = d3.select("body")
     .append("svg")
     .attr("class","barchart")
-    .attr("width", 3000 )
-    .attr("height", 1400)
+    .attr("width", 3000)
+    .attr("height", 700)
+    .attr("margin-left", 150)
 
 
 svg2.append("rect")
     .attr("width", 3000)
-    .attr("height", 1400)
+    .attr("height", 700)
     .attr("x", 0)
     .attr("y", 0)
+    .attr("margin-left", 150)
     .style("fill", "white")
 
 
@@ -204,7 +215,7 @@ function statenisland(){
                 .attr("height", 10)
                 .attr("width", function(d) { return d[1]; })
                 .attr("fill",function(d, i) {
-                    return color[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // here it is picking up colors in sequence
                 })
                 .text(function(d) { return d[0];})
 
@@ -288,7 +299,7 @@ function manhattan(){
                 .attr("height", 10)
                 .attr("width", function(d) { return d[1]; })
                 .attr("fill",function(d, i) {
-                    return color[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // here it is picking up colors in sequence
                 })
                 .text(function(d) { return d[0];})
 
@@ -373,7 +384,7 @@ function brooklyn(){
                 .attr("height", 10)
                 .attr("width", function(d) { return d[1]; })
                 .attr("fill",function(d, i) {
-                    return color[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // here it is picking up colors in sequence
                 })
                 .text(function(d) { return d[0];})
 
@@ -463,7 +474,7 @@ function bronx(){
                 .attr("height", 10)
                 .attr("width", function(d) { return d[1]; })
                 .attr("fill",function(d, i) {
-                    return color[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // here it is picking up colors in sequence
                 })
                 .text(function(d) { return d[0];})
 
@@ -550,7 +561,7 @@ function queens(){
                 .attr("height", 10)
                 .attr("width", function(d) { return d[1]; })
                 .attr("fill",function(d, i) {
-                    return color[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // here it is picking up colors in sequence
                 })
                 .text(function(d) { return d[0];})
 
@@ -564,6 +575,8 @@ function queens(){
     });
 
 }
+
+
 
 function background(){
 

@@ -4,7 +4,7 @@ var categories= ['Unacceptable material used', 'Facilities not vermin proof', 'F
 
 var dollars = [26667, 18193, 15287];
 
-var colors = ['#0000b4','#2fcab6','#0094ff'];
+var colors = ['#0000b4','#37CA8E','#ff834e'];
 
 var grid = d3.range(25).map(function(i){
     return {'x1':0,'y1':0,'x2':0,'y2':480};
