@@ -196,8 +196,9 @@
             in terms of hygiene without ignoring their taste preferences.
         </p>
 
-        <p>A more in depth analysis regarding the data can be found in a iPython explainer notebook. Its link can be found
-        at the end of this page. </p>
+        <p>A more in depth analysis regarding the data can be found in a iPython explainer notebook. Its link can be
+            found
+            at the end of this page. </p>
 
 
     </div>
@@ -237,10 +238,9 @@
         <br/>
 
 
-
-        <div id="vis6">
-            <script src="javascript/v6.js" type="text/javascript"></script>
-        </div>
+        <!--<div id="vis6">-->
+        <!--<script src="javascript/v6.js" type="text/javascript"></script>-->
+        <!--</div>-->
 
 
         <p>
@@ -371,6 +371,18 @@
 
         </div>
 
+        <br/>
+        <br/>
+
+        <p>Finally, we visualized the restaurant occurances on each borough. When we click on a specific borough we can
+            see which are the most common restaurants in this area.</p>
+        <p>Although Manhattan is the smallest borough, it has the most restaurants. As we expected, the most popular
+            cuisine in every borough is the American cuisine. Also, in every borough except Manhattan the second
+            favorite cuisine is Chinese.</p>
+        <div id="vis6">
+            <script src="javascript/v6.js" type="text/javascript"></script>
+        </div>
+
     </div>
 
 
@@ -451,7 +463,51 @@
         <br>
         <div id="blue" class="box"></div>
         <span class="explanation">- Grade C Restaurants</span>
+
+        <h3>Which violation types contribute most to a big(bad) score?</h3>
+
+        <p>
+            Our goal is to create a model that can use as input the location, cuisine type and a combination of
+            violation codes issued in a restaurant, and estimate the inspection score, so that we find the most
+            important violations. Our dataset consists of categorical attributes, all of which have many classes,
+            resulting to 74 columns(after the 1-of-K encoding). For that reason, we chose Lasso regression model. It can
+            be thought as a feature selection tool , on top of being a regression model.</p>
+
+        <p>The following four violation types are the ones that stood out:</p>
+
+        <p>
+        <ul>
+            <li>Duties of an officer of the Department interfered with or obstructed (07A).
+            </li>
+            <li>Sewage disposal system improper or unapproved (05A).
+            </li>
+            <li>Food not labeled in accordance with HACCP plan (06I).
+            </li>
+            <li>
+                Insufficient or no refrigerated or hot holding equipment to keep potentially hazardous foods at required
+                temperatures (05F).
+            </li>
+        </ul>
+        </p>
+        <p>
+            As we expected, the borough and the cuisine type of the restaurants are not responsible for a high score.
+        </p>
+
+        <p>
+            <img src="img/ab.png">
+        </p>
+
+        <p>Finally, we tested our model to the dataset of the inspections of 2017. As it can be seen at the plot below,
+            our model's predictions are very accurate, even on a test set that remained 'unseen' during the training of
+            our model.</p>
+        <p>
+            <img src="img/ac.png">
+        </p>
+
+        <br/>
     </div>
+
+
 </section>
 
 <section id="references">
@@ -461,7 +517,7 @@
 
         <br/>
 
-Used Dataset:
+        Used Dataset:
         <a href="https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/rs6k-p7g6"
            target="_blank">New York City Inspection Results</a>
 

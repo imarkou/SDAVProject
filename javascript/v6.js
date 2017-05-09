@@ -1,28 +1,36 @@
 "use strict";
 
+//set the dimensions 
+
 var width = 960,
     height = 500,
     centered;
-var colored = ["#D8BFD8","#7FFFD4","#E9967A","#8FBC8F","#ADD8E6","#BC8F8F","#90EE90","#FFB6C1","#B0C4DE","#FFA07A","#DDA0DD","#F5DEB3"]
+// set the colours
+var colored = ["#ff0000","#ff8000","#40ff00","#0080ff","#4000ff","#bf00ff","#ffff00","#ff0040","#8000ff","#ff0040","#00bfff","#80ff00"]
 
 
-
+//create the svg which contains the map
 var svg1 = d3.select("body")
     .append("svg")
-    .attr("width", width )
+    .attr("width", 1300 )
     .attr("height", height)
     .attr("margin-left", 150)
 
 svg1.append("rect")
 
-    .attr("width", width)
+    .attr("width", 800)
     .attr("height", height)
-    .attr("x", 0)
+    .attr("x", 150)
     .attr("y", 0)
     .attr("margin-left", 150)
     .style("stroke", "black")
     .style("fill", "#e6f2ff")
     .style("stroke-width", 2);
+//initialize variables
+ 
+
+
+
 
 var projection = d3.geo.mercator()
     .center([-73.94, 40.70])
@@ -32,7 +40,7 @@ var projection = d3.geo.mercator()
 var path = d3.geo.path()
     .projection(projection);
 
-
+//create the map
 d3.json("Data/v6/boroughs.geojson", function(json) {
 
 
@@ -49,6 +57,7 @@ d3.json("Data/v6/boroughs.geojson", function(json) {
             'stroke-width': 1.5,
             //stroke: 'rgb(180,180,180)'
             'stroke':'black'
+
         })
         .attr("class", function(d,i){
             return i;
@@ -69,7 +78,7 @@ d3.json("Data/v6/boroughs.geojson", function(json) {
         .on("click",clicked);
 
 
-
+//add borough names to the map
 
     svg1.selectAll("text")
         .data(json.features)
@@ -96,7 +105,7 @@ d3.json("Data/v6/boroughs.geojson", function(json) {
 
 
 
-
+//create the svg that contains the barplots
 var svg2 = d3.select("body")
     .append("svg")
     .attr("class","barchart")
@@ -113,8 +122,16 @@ svg2.append("rect")
     .attr("margin-left", 150)
     .style("fill", "white")
 
+svg2.append("text")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "20px")
+                .attr("fill", "black")
+                .text('Click on the five boroughs of New York on the map above')
+                .attr('x', width/2)
+                .attr('y', height/6)
 
 
+// click on the map
 function clicked(d) {
     if (d3.select(this).attr("class") == 0){
         background()
@@ -141,12 +158,31 @@ function clicked(d) {
 }
 
 
-
+// function for staten island bar plot
 function statenisland(){
     d3.json("Data/v6/cuisine_st_island.json", function(error,data1) {
-        if (error) { //If error is not null, something went wrong.
-            console.log(error); //Log the error.
-        } else { //If no error, the file loaded correctly. Yay!
+        if (error) { //error in loading data
+            console.log(error); 
+        } else { //If no error, the file loaded correctly. 
+            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
+
+var x = d3.scale.linear().range([1000, 200]);
+
+var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(10);
+
+var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(12);
+
+
+            y.domain(data1.map(function(d) { return d[0]; }));
+            x.domain([ 2700,0]);
+            
+           //Add title to barplot
             svg2.selectAll("text").remove();
             svg2.append("text")
                 .attr("text-anchor", "middle")
@@ -155,6 +191,8 @@ function statenisland(){
                 .text('Staten Island')
                 .attr('x', width/2)
                 .attr('y', height/10)
+
+            //add title to yaxis
             svg2.append("text")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "13px")
@@ -163,24 +201,8 @@ function statenisland(){
                 .text("Number of Restaurants")
                 .attr('x', 300)
                 .attr('y', 600)
-
-            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
-
-            var x = d3.scale.linear().range([2900, 200]);
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom")
-                .ticks(12);
-
-            y.domain(data1.map(function(d) { return d[0]; }));
-            x.domain([ 2700,0]);
-
+               
+           //create yaxis 
             svg2.append("g")
                 .attr("class", "y axis")
                 .attr("transform", "translate("+ 100 +",-150)")
@@ -191,7 +213,7 @@ function statenisland(){
                 .style("text-anchor", "end")
 
 
-
+           //create xaxis
             svg2.append("g")
                 .attr("class", "x axis")
 
@@ -203,7 +225,7 @@ function statenisland(){
                 .attr("dy", "-.55em")
                 .attr("transform", "rotate(-45)" )
 
-
+           //create barplot
             var svg3 = svg2.selectAll("#barchart")
                 .data(data1)
                 .enter()
@@ -213,9 +235,9 @@ function statenisland(){
                     return (i *35)+105})
                 .attr("x", function(d) { return (101 ); })
                 .attr("height", 10)
-                .attr("width", function(d) { return d[1]; })
+                .attr("width", function(d) { return d[1]/3.36; })
                 .attr("fill",function(d, i) {
-                    return colored[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]   // set the colours
                 })
                 .text(function(d) { return d[0];})
 
@@ -226,11 +248,28 @@ function statenisland(){
     });
 
 }
+// function for manhattan bar plot
 function manhattan(){
     d3.json("Data/v6/cuisine_manhattan.json", function(error,data1) {
-        if (error) { //If error is not null, something went wrong.
-            console.log(error); //Log the error.
-        } else { //If no error, the file loaded correctly. Yay!
+        if (error) { //error in loading data
+            console.log(error); 
+        } else { //If no error, the file loaded correctly. 
+            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
+
+var x = d3.scale.linear().range([1000, 200]);
+
+var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(10);
+
+var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(12);
+            y.domain(data1.map(function(d) { return d[0]; }));
+           x.domain([ 2700,0]);
+           //Add title to barplot
             svg2.selectAll("text").remove();
             svg2.append("text")
                 .attr("text-anchor", "middle")
@@ -239,6 +278,8 @@ function manhattan(){
                 .text('Manhattan')
                 .attr('x', width/2)
                 .attr('y', height/10)
+
+            //add title to yaxis
             svg2.append("text")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "13px")
@@ -248,23 +289,8 @@ function manhattan(){
                 .attr('x', 300)
                 .attr('y', 600)
 
-            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
-
-            var x = d3.scale.linear().range([2900, 200]);
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom")
-                .ticks(12);
-
-            y.domain(data1.map(function(d) { return d[0]; }));
-            x.domain([ 2700,0]);
-
+           
+             //create yaxis
             svg2.append("g")
                 .attr("class", "y axis")
                 .attr("transform", "translate("+ 100 +",-150)")
@@ -275,7 +301,7 @@ function manhattan(){
                 .style("text-anchor", "end")
 
 
-
+           //create xaxis
             svg2.append("g")
                 .attr("class", "x axis")
 
@@ -287,7 +313,7 @@ function manhattan(){
                 .attr("dy", "-.55em")
                 .attr("transform", "rotate(-45)" )
 
-
+            //create barplot
             var svg3 = svg2.selectAll("#barchart")
                 .data(data1)
                 .enter()
@@ -297,9 +323,9 @@ function manhattan(){
                     return (i *35)+105})
                 .attr("x", function(d) { return (101 ); })
                 .attr("height", 10)
-                .attr("width", function(d) { return d[1]; })
+                .attr("width", function(d) { return d[1]/3.36; })
                 .attr("fill",function(d, i) {
-                    return colored[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // set the colours
                 })
                 .text(function(d) { return d[0];})
 
@@ -310,12 +336,28 @@ function manhattan(){
     });
 
 }
-
+//function for brooklyn bar plot
 function brooklyn(){
     d3.json("Data/v6/cuisine_brooklyn.json", function(error,data1) {
-        if (error) { //If error is not null, something went wrong.
-            console.log(error); //Log the error.
-        } else { //If no error, the file loaded correctly. Yay!
+        if (error) { ///error in loading data
+            console.log(error); 
+        } else { //If no error, the file loaded correctly. 
+            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
+
+var x = d3.scale.linear().range([1000, 200]);
+
+var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(10);
+
+var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(12);
+            y.domain(data1.map(function(d) { return d[0]; }));
+             x.domain([ 2700,0]);
+             //Add title to barplot
             svg2.selectAll("text").remove();
             svg2.append("text")
                 .attr("text-anchor", "middle")
@@ -324,6 +366,7 @@ function brooklyn(){
                 .text('Brooklyn')
                 .attr('x', width/2)
                 .attr('y', height/10)
+            //add title to yaxis
             svg2.append("text")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "13px")
@@ -333,23 +376,7 @@ function brooklyn(){
                 .attr('x', 300)
                 .attr('y', 600)
 
-            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
-
-            var x = d3.scale.linear().range([2900, 200]);
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom")
-                .ticks(12);
-
-            y.domain(data1.map(function(d) { return d[0]; }));
-            x.domain([ 2700,0]);
-
+           //create yaxis
             svg2.append("g")
                 .attr("class", "y axis")
                 .attr("transform", "translate("+ 100 +",-150)")
@@ -360,7 +387,7 @@ function brooklyn(){
                 .style("text-anchor", "end")
 
 
-
+             //create xaxis
             svg2.append("g")
                 .attr("class", "x axis")
 
@@ -372,7 +399,7 @@ function brooklyn(){
                 .attr("dy", "-.55em")
                 .attr("transform", "rotate(-45)" )
 
-
+            //create barplot
             var svg3 = svg2.selectAll("#barchart")
                 .data(data1)
                 .enter()
@@ -382,10 +409,9 @@ function brooklyn(){
                     return (i *35)+105})
                 .attr("x", function(d) { return (101 ); })
                 .attr("height", 10)
-                .attr("width", function(d) { return d[1]; })
+                .attr("width", function(d) { return d[1]/3.36; })
                 .attr("fill",function(d, i) {
-                    return colored[i%12]  // here it is picking up colors in sequence
-                })
+                    return colored[i%12] })  // set the colours
                 .text(function(d) { return d[0];})
 
 
@@ -397,13 +423,29 @@ function brooklyn(){
 }
 
 
-
+//function for bronx bar plot
 
 function bronx(){
     d3.json("Data/v6/cuisine_bronx.json", function(error,data1) {
-        if (error) { //If error is not null, something went wrong.
-            console.log(error); //Log the error.
-        } else { //If no error, the file loaded correctly. Yay!
+        if (error) { //error in loading data
+            console.log(error); 
+        } else { //If no error, the file loaded correctly. 
+            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
+
+var x = d3.scale.linear().range([1000, 200]);
+
+var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(10);
+
+var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(12);
+            y.domain(data1.map(function(d) { return d[0]; }));
+            x.domain([ 2700,0]);
+            //Add title to barplot
             svg2.selectAll("text").remove();
             svg2.append("text")
                 .attr("text-anchor", "middle")
@@ -412,7 +454,7 @@ function bronx(){
                 .text('Bronx')
                 .attr('x', width/2)
                 .attr('y', height/10)
-
+            //add title to yaxis
             svg2.append("text")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "13px")
@@ -422,23 +464,7 @@ function bronx(){
                 .attr('x', 300)
                 .attr('y', 600)
 
-            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
-
-            var x = d3.scale.linear().range([2900, 200]);
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom")
-                .ticks(12);
-
-            y.domain(data1.map(function(d) { return d[0]; }));
-            x.domain([ 2700,0]);
-
+            //create yaxis
             svg2.append("g")
                 .attr("class", "y axis")
                 .attr("transform", "translate("+ 100 +",-150)")
@@ -450,7 +476,7 @@ function bronx(){
 
 
 
-
+          //create xaxis 
             svg2.append("g")
                 .attr("class", "x axis")
 
@@ -462,7 +488,7 @@ function bronx(){
                 .attr("dy", "-.55em")
                 .attr("transform", "rotate(-45)" )
 
-
+           //create barplot
             var svg3 = svg2.selectAll("#barchart")
                 .data(data1)
                 .enter()
@@ -472,9 +498,9 @@ function bronx(){
                     return (i *35)+105})
                 .attr("x", function(d) { return (101 ); })
                 .attr("height", 10)
-                .attr("width", function(d) { return d[1]; })
+                .attr("width", function(d) { return d[1]/3.36; })
                 .attr("fill",function(d, i) {
-                    return colored[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]   // set the colours
                 })
                 .text(function(d) { return d[0];})
 
@@ -485,12 +511,29 @@ function bronx(){
     });
 
 }
-
+//function for queens bar plot
 function queens(){
     d3.json("Data/v6/cuisine_queens.json", function(error,data1) {
-        if (error) { //If error is not null, something went wrong.
-            console.log(error); //Log the error.
-        } else { //If no error, the file loaded correctly. Yay!
+        if (error) { //error in loading data
+            console.log(error); 
+        } else { //If no error, the file loaded correctly.
+            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
+
+var x = d3.scale.linear().range([1000, 200]);
+
+var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(10);
+
+var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom")
+                .ticks(12);
+
+            y.domain(data1.map(function(d) { return d[0]; }));
+            x.domain([ 2700,0]); 
+            //Add title to barplot
             svg2.selectAll("text").remove();
             svg2.append("text")
                 .attr("text-anchor", "middle")
@@ -499,7 +542,7 @@ function queens(){
                 .text('Queens')
                 .attr('x', width/2)
                 .attr('y', height/10)
-
+            //add title to yaxis
             svg2.append("text")
                 .attr("text-anchor", "middle")
                 .attr("font-size", "13px")
@@ -510,23 +553,7 @@ function queens(){
                 .attr('y', 600)
 
 
-            var y = d3.scale.ordinal().rangeRoundBands([200,700], 2);
-
-            var x = d3.scale.linear().range([2900, 200]);
-
-            var yAxis = d3.svg.axis()
-                .scale(y)
-                .orient("left")
-                .ticks(10);
-
-            var xAxis = d3.svg.axis()
-                .scale(x)
-                .orient("bottom")
-                .ticks(12);
-
-            y.domain(data1.map(function(d) { return d[0]; }));
-            x.domain([ 2700,0]);
-
+            //create yaxis
             svg2.append("g")
                 .attr("class", "y axis")
                 .attr("transform", "translate("+ 100 +",-150)")
@@ -537,7 +564,7 @@ function queens(){
                 .style("text-anchor", "end")
 
 
-
+            //create xaxis
             svg2.append("g")
                 .attr("class", "x axis")
 
@@ -549,7 +576,7 @@ function queens(){
                 .attr("dy", "-.55em")
                 .attr("transform", "rotate(-45)" );
 
-
+            //create barplot
             var svg3 = svg2.selectAll("#barchart")
                 .data(data1)
                 .enter()
@@ -559,9 +586,9 @@ function queens(){
                     return (i *35)+105})
                 .attr("x", function(d) { return (101 ); })
                 .attr("height", 10)
-                .attr("width", function(d) { return d[1]; })
+                .attr("width", function(d) { return d[1]/3.36; })
                 .attr("fill",function(d, i) {
-                    return colored[i%12]  // here it is picking up colors in sequence
+                    return colored[i%12]  // set the colours
                 })
                 .text(function(d) { return d[0];})
 
@@ -577,7 +604,7 @@ function queens(){
 }
 
 
-
+// function to change the background on each click
 function background(){
 
     svg2.append("rect")
